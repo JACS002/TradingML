@@ -1,0 +1,10 @@
+{
+  "ticker": "AAPL",
+  "year": 2024,
+  "month": 12,
+  "day_of_week": 1,
+  "feat_ret_co_prev": 0.0035,
+  "feat_ret_prevclose_prev": 0.0041,
+  "feat_vol10_prev": 0.021,
+  "feat_volume_prev": 95000000
+}

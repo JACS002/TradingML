@@ -1,0 +1,58 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres_trading
+    restart: always
+    environment:
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      POSTGRES_DB: ${PG_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  jupyter:
+    image: jupyter/base-notebook
+    container_name: jupyter_trading
+    restart: always
+    environment:
+      JUPYTER_ENABLE_LAB: "yes"
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./notebooks:/home/jovyan/work
+    depends_on:
+      - postgres
+
+  feature-builder:
+    build: ./feature_builder
+    container_name: feature_builder
+    restart: "no"
+    environment:
+      PG_HOST: postgres
+      PG_PORT: 5432
+      PG_USER: ${PG_USER}
+      PG_PASSWORD: ${PG_PASSWORD}
+      PG_DB: ${PG_DB}
+      PG_SCHEMA_RAW: ${PG_SCHEMA_RAW}
+      PG_SCHEMA_ANALYTICS: ${PG_SCHEMA_ANALYTICS}
+    depends_on:
+      - postgres
+
+  model_api:
+    build:
+      context: .
+      dockerfile: model_api/Dockerfile
+    container_name: model_api
+    environment:
+      - MODEL_PATH=models/best_model_LogisticRegression.pkl
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+
+volumes:
+  pgdata:
