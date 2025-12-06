@@ -1,19 +1,79 @@
 # TradingML Pipeline - Sistema Completo de Predicción de Mercados
 
-Este proyecto implementa un pipeline completo de Machine Learning para trading algorítmico, que abarca desde la ingesta de datos de mercado hasta el despliegue de modelos predictivos mediante una API REST. El sistema procesa precios diarios de mercado, genera features avanzadas, entrena modelos de clasificación para predicción de dirección diaria, y permite simular estrategias de inversión.
+> **Sistema integral de Machine Learning para trading algorítmico con pipeline completo de datos, modelado predictivo y despliegue productivo**
 
-## Componentes del Sistema
+Este proyecto implementa una solución end-to-end para predicción de dirección diaria en mercados financieros. Abarca desde la ingesta automatizada de datos de mercado, construcción de features técnicas, entrenamiento y optimización de modelos de ML, hasta el despliegue de una API REST de inferencia en tiempo real, todo orquestado mediante Docker Compose para máxima reproducibilidad y escalabilidad.
 
-El pipeline se compone de tres módulos integrados:
+## Descripción General
 
-1. **Ingesta de Datos**: Descarga y almacena datos OHLCV desde Yahoo Finance en el esquema `raw.prices_daily`
-2. **Construcción de Features**: Servicio CLI (`feature-builder`) que genera la tabla analítica `analytics.daily_features` 
-3. **Modelado y Predicción**: Entrenamiento de modelos de ML, simulación de inversión y API REST para inferencia
-4. **Infraestructura**: Entorno dockerizado con PostgreSQL, Jupyter Notebook y servicios de procesamiento
+El pipeline integra cuatro módulos especializados:
+
+1. **Ingesta de Datos**: Descarga y normalización de datos OHLCV desde Yahoo Finance → `raw.prices_daily`
+2. **Construcción de Features**: Ingeniería de features técnicas y temporales → `analytics.daily_features` 
+3. **Machine Learning**: Entrenamiento, comparación y optimización de 7 algoritmos → Modelo ganador serializado
+4. **API de Inferencia**: Servicio REST containerizado para predicciones en tiempo real
+5. **Infraestructura**: Orquestación completa mediante Docker Compose con PostgreSQL, Jupyter y servicios de procesamiento
 
 ---
 
-## 1. Arquitectura General
+## 1. Stack Tecnológico
+
+### 1.1 Lenguajes y Frameworks
+
+| Componente | Tecnología | Propósito |
+|-----------|-----------|----------|
+| **Procesamiento de Datos** | Python 3.x, Pandas, NumPy | Ingesta, transformación y análisis de series de tiempo financieras |
+| **Base de Datos** | PostgreSQL 15 | Almacenamiento estructurado de datos crudos y analíticos |
+| **Machine Learning** | Scikit-learn, XGBoost, LightGBM | Entrenamiento y comparación de 7 algoritmos de clasificación |
+| **Análisis Exploratorio** | Jupyter Notebook, Matplotlib, Seaborn | Análisis interactivo de datos y visualización |
+| **API REST** | FastAPI, Uvicorn | Servicio de inferencia con documentación automática (Swagger/OpenAPI) |
+| **Orquestación** | Docker, Docker Compose | Containerización y orquestación de servicios |
+
+### 1.2 Librerías Python Principales
+
+**Para Ingesta y Procesamiento:**
+```
+pandas               # Manipulación de datos tabulares
+numpy                # Computación numérica y vectorizada
+SQLAlchemy           # ORM para acceso a base de datos
+psycopg2-binary      # Driver PostgreSQL para Python
+python-dotenv        # Gestión de variables de entorno
+yfinance             # Descarga de datos de Yahoo Finance
+```
+
+**Para Machine Learning y Análisis:**
+```
+scikit-learn         # Algoritmos ML, preprocesamiento, validación
+xgboost              # Gradient Boosting avanzado
+lightgbm             # Gradient Boosting ligero y rápido
+joblib               # Serialización de modelos
+```
+
+**Para API y Servicios:**
+```
+fastapi              # Framework web moderno, rápido y tipo-seguro
+uvicorn[standard]    # Servidor ASGI de alto rendimiento
+pydantic             # Validación de datos y esquemas
+```
+
+**Para Visualización:**
+```
+matplotlib           # Gráficos estáticos
+seaborn              # Visualizaciones estadísticas mejoradas
+```
+
+### 1.3 Infraestructura y DevOps
+
+| Herramienta | Versión | Función |
+|-----------|---------|----------|
+| **PostgreSQL** | 15 | Base de datos relacional para persistencia de datos |
+| **Docker** | Latest | Containerización de servicios para reproducibilidad |
+| **Docker Compose** | 3.9 | Orquestación de múltiples contenedores |
+| **Jupyter Notebook** | Base | Entorno interactivo para análisis y desarrollo |
+
+---
+
+## 2. Arquitectura General
 
 El entorno se ejecuta mediante Docker Compose con los siguientes servicios:
 
@@ -27,7 +87,7 @@ La comunicación entre servicios se realiza mediante redes internas definidas po
 
 ---
 
-## 2. Configuración del Sistema
+## 3. Configuración del Sistema
 
 ### Variables de Ambiente
 
@@ -56,7 +116,7 @@ cp .env.example .env
 
 ---
 
-## 3. Pipeline de Datos
+## 4. Pipeline de Datos
 
 ### 3.1 Ingesta de Datos de Mercado
 
@@ -117,7 +177,7 @@ La estructura corresponde a un One Big Table con una fila por día por activo.
 
 ---
 
-## 4. Garantías de Calidad y Reproducibilidad
+## 5. Garantías de Calidad y Reproducibilidad
 
 ### 4.1 Idempotencia del Sistema
 
@@ -157,7 +217,7 @@ Luego de ejecutar la ingesta y el feature-builder, se deben validar:
 
 ---
 
-## 5. Machine Learning y Modelado Predictivo
+## 6. Machine Learning y Modelado Predictivo
 
 La tabla `analytics.daily_features` alimenta el módulo de Machine Learning, implementado en `ml_trading_classifier.ipynb`, que desarrolla un sistema completo de predicción de dirección diaria del mercado mediante clasificación binaria. El sistema incluye entrenamiento de múltiples algoritmos, validación temporal, simulación de estrategias de inversión y despliegue productivo mediante API REST.
 
@@ -300,7 +360,7 @@ El análisis conecta directamente las métricas de ML con la rentabilidad real o
 
 ---
 
-## 6. Despliegue y Producción
+## 7. Despliegue y Producción
 
 ### 6.1 Serialización del Modelo
 
@@ -361,7 +421,7 @@ curl -X POST http://localhost:8000/predict \
 ```
 ---
 
-## 7. Características del Sistema
+## 8. Características del Sistema
 
 ### 7.1 Reproducibilidad y Mantenibilidad
 
@@ -407,20 +467,20 @@ El sistema representa una implementación completa de MLOps aplicado a finanzas 
 
 ---
 
-## 8. Guía de Ejecución Completa
+## 9. Guía de Ejecución Completa
 
 Para reproducir todo el sistema desde la ingesta hasta la API, se recomienda seguir los pasos descritos a continuación.
 
 ---
 
-### 8.1 Preparación del Entorno
+### 9.1 Preparación del Entorno
 
 Crear el archivo `.env` a partir de `.env.example` y asegurarse de que Docker Desktop esté en ejecución.  
 Los servicios se levantarán mediante `docker compose`.
 
 ---
 
-### 8.2 Inicialización de Servicios
+### 9.2 Inicialización de Servicios
 
 Iniciar PostgreSQL y Jupyter Notebook con:
 
@@ -431,7 +491,7 @@ Esto habilita la base de datos y el entorno de notebooks.
 
 ---
 
-### 8.3 Ejecución del Pipeline de Datos
+### 9.3 Ejecución del Pipeline de Datos
 
 Abrir `http://localhost:8888` y ejecutar el notebook `01_ingesta_prices_raw.ipynb`.  
 Este proceso descarga los datos OHLCV desde Yahoo Finance y los guarda en `raw.prices_daily`.
@@ -452,7 +512,7 @@ Este paso genera la tabla OBT `analytics.daily_features`, utilizada para el entr
 
 ---
 
-### 8.4 Machine Learning y Modelado
+### 9.4 Machine Learning y Modelado
 
 Ejecutar el notebook `ml_trading_classifier.ipynb`.  
 En él se realizan las siguientes tareas:
@@ -467,7 +527,7 @@ En él se realizan las siguientes tareas:
 
 ---
 
-### 8.5 Despliegue de la API
+### 9.5 Despliegue de la API
 
 Una vez generado el modelo final, construir la imagen de la API mediante:
 
@@ -481,7 +541,7 @@ La API cargará automáticamente el modelo final.
 
 ---
 
-### 8.6 Interacción con el Servicio
+### 9.6 Interacción con el Servicio
 
 La documentación interactiva y la interfaz visual están disponibles en:
 
@@ -491,7 +551,7 @@ Desde esta página es posible enviar peticiones al endpoint `/predict` sin neces
 
 ---
 
-### 8.7 Secuencia Completa
+### 9.7 Secuencia Completa
 
 El flujo completo del sistema sigue esta secuencia integrada:
 
