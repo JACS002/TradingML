@@ -1,6 +1,24 @@
-# TradingML: End-to-End Algorithmic Trading Pipeline
+<div align="center">
 
-A production-grade **Machine Learning system for financial market prediction**, featuring a fully automated data pipeline, predictive modeling, and a containerized inference API.
+# 📈 TradingML: End-to-End Algorithmic Trading Pipeline
+
+**A production-grade Machine Learning system for financial market prediction, featuring a fully automated data pipeline, predictive modeling, and a containerized inference API.**
+
+[![Python](https://img.shields.io/badge/Python-3.10-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-336791?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.95-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![Pandas](https://img.shields.io/badge/Pandas-2.0-150458?style=for-the-badge&logo=pandas&logoColor=white)](https://pandas.pydata.org/)
+[![Scikit-Learn](https://img.shields.io/badge/scikit--learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
+[![XGBoost](https://img.shields.io/badge/XGBoost-Models-EB4223?style=for-the-badge&logo=xgboost&logoColor=white)](https://xgboost.readthedocs.io/)
+
+[System Architecture](#-system-architecture) • [Key Features](#-key-features) • [Data Pipeline](#-data-pipeline--engineering) • [ML Strategy](#-machine-learning-strategy) • [Deployment](#-deployment-inference-api) • [Quick Start](#-quick-start-guide)
+
+</div>
+
+---
+
+## 📋 Overview
 
 This project demonstrates a complete **Data Product lifecycle**: from raw data ingestion and robust feature engineering to model training, backtesting, and deployment. It is designed with a strong focus on **reproducibility, scalability, and idempotency**, orchestrated entirely via **Docker Compose**.
 
